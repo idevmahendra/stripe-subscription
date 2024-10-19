@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Stripe.Subscription>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+
+    .subscription-list {
+        list-style-type: none;
+        padding: 0;
+    }
+
+        .subscription-list li {
+            background-color: #f8f8f8;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+</style>
+
+<h1>My Subscriptions</h1>
+
+@if (Model != null && Model.Any())
+{
+    <ul class="subscription-list">
+        @foreach (var subscription in Model)
+        {
+            <li>
+                <strong>Subscription ID:</strong> @subscription.Id<br />
+                <strong>Status:</strong> @subscription.Status<br />
+                <strong>Current Period End:</strong> <p>
+                    @Convert.ToString(subscription.CurrentPeriodEnd)
+                </p>
+                <a href="/Subscription/Unsubscribe?subscriptionId=@subscription.Id" class="subscribe-btn">Unsubscribe</a>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>No subscriptions found for this customer.</p>
+}

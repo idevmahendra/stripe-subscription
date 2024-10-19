@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Stripe.Plan>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+
+    .plan-list {
+        list-style-type: none;
+        padding: 0;
+    }
+
+        .plan-list li {
+            background-color: #f8f8f8;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+    .subscribe-btn {
+        display: inline-block;
+        padding: 10px 15px;
+        background-color: #4CAF50;
+        color: white;
+        border-radius: 3px;
+        text-decoration: none;
+        float: right;
+    }
+
+        .subscribe-btn:hover {
+            background-color: #45a049;
+        }
+</style>
+
+<h1>Available Subscription Plans</h1>
+
+@if (Model != null && Model.Any())
+{
+    <ul class="plan-list">
+        @foreach (var plan in Model)
+        {
+            <li>
+                <strong>Plan:</strong> @plan.Nickname
+                <a href="/Subscription/Subscribe?planId=@plan.Id" class="subscribe-btn">Subscribe</a>
+                <br />
+                Interval: @plan.Interval
+                <br />
+                Price: @plan.Amount
+            </li>
+            <br />
+        }
+    </ul>
+}
+else
+{
+    <p>No subscription plans available at the moment.</p>
+}
